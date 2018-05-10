@@ -1,0 +1,46 @@
+package chapter8;
+
+//之字形打印矩阵
+public class demo3 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int[][] arr = {{1,2,3},{5,6,7},{9,10,11}};
+		boolean flag = true; //表示打印的斜线的方向
+		int tr = 0;
+		int tc = 0;        //上面点的横纵坐标
+		int dr = 0;
+		int dc = 0;		   //下面点的横纵坐标
+		 
+		int length1 = arr.length;     //数组的行数
+		int length2 = arr[0].length;  //数组的列数
+		
+		while(tr!=length1){
+			print(arr,tr,tc,dr,dc,flag);
+			tr = tc == length2-1?tr+1:tr;
+			tc = tc == length2-1?tc:tc+1;
+			//下面这两行，位置不可以更换
+			dc = dr == length1-1?dc+1:dc;
+			dr = dr == length1-1?dr:dr+1;
+						
+			flag = !flag;
+		}				
+	}
+
+	//输出数据
+	public static void print(int[][] arr,int tr,int tc,int dr,int dc,boolean flag){
+		if(flag){
+			for(int i= tr;i<=dr;i++){
+				System.out.print(arr[i][tc--]+" ");
+			}
+		}
+		else{
+			for(int i =dr;i>=tr;i--){
+				System.out.print(arr[i][dc++]+" ");
+			}
+		}
+	}
+	
+}
