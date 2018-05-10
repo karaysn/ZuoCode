@@ -1,0 +1,50 @@
+package chapter8;
+
+//5月6日 需要排序的最短子数组长度
+public class demo5 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int[] arr = {1,5,3,4,2,6,7};
+		int a = getMinLength(arr);
+		System.out.print(a);
+	}a
+
+	public static int getMinLength(int[] arr){
+		if(arr==null || arr.length==0){
+			return -1;
+		}
+		//先从右往左遍历，找出最小值
+		int min = arr[arr.length-1];
+		int minIndex = -1;
+		for(int i=arr.length-2;i>=0;i--){
+			if(arr[i]>min){
+				minIndex = i;
+			}
+			else{
+				min = Math.min(arr[i], min);
+			}
+		}
+		
+		if(minIndex == -1){
+			return 0;
+		}
+		
+		//从左往右遍历，找出最大值
+		int max = arr[0];
+		int maxIndex = -1;
+		for(int i=1;i<arr.length;i++){
+			if(arr[i]<max){
+				maxIndex = i;
+			}
+			else{
+				max = Math.max(max, arr[i]);
+			}
+		}
+		
+		return maxIndex - minIndex +1;
+	}
+	
+}
