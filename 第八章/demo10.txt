@@ -1,0 +1,39 @@
+package chapter8;
+
+//未排序正数数组累加和为给定值的最长子数组的长度
+public class demo10 {
+
+	public static void main(String[] args) {
+		int[] arr = {1,2,1,1,1};
+		int result = getMaxLength(arr,0);
+		System.out.println(result);
+	}
+	
+	public static int getMaxLength(int[] arr,int k){
+		if(arr == null || arr.length==0){
+			return -1;
+		}
+		int sum = arr[0],i=0,j=0,len=0;
+		while(j<arr.length && i<=j){
+			//sum += arr[j];              //这句话不可以写，不然每次循环都会添加一次arr[j]
+			if(sum == k){
+				len = Math.max(j-i+1, len);
+				sum -= arr[i];
+				i++;
+			}
+			else if(sum>k){                //i右移动
+				sum -= arr[i];
+				i++;
+			}
+			else{
+				j++;
+				if(j==arr.length){         //防止j溢出，要注意
+					break;
+				}
+				sum += arr[j];
+			}
+		}
+		return len;
+	}
+
+}

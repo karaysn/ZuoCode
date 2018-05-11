@@ -1,0 +1,38 @@
+package chapter8;
+
+//在数组中找到出现次数大于一半长度的数
+public class demo6 {
+
+	/**
+	 * 
+	 *士兵守阵地的想法，只好找一个数，进阶的不会
+	 */
+	public static void main(String[] args) {
+		int[] arr = {1,2,3};
+        System.out.println(findNum(arr));
+	}
+	public static boolean findNum(int[] arr){
+		int solider = arr[0];
+		int count = 1;
+		for(int i=1;i<arr.length;i++){
+			if(arr[i]==solider){
+				count++;
+			}
+			else{
+				count--;
+				if(count<0){
+					solider = arr[i];
+					count = 1;
+				}
+			}
+		}
+		count = 0;
+		for(int i=0;i<arr.length;i++){
+			if(arr[i]==solider){
+				count++;
+			}
+		}
+		return count>=arr.length/2.0?true:false;
+	}
+
+}

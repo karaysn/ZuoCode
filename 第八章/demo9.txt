@@ -1,0 +1,74 @@
+package chapter8;
+
+//不重复打印排序数组中相加和为给定值的所有二元组和三元组
+public class demo9 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int[] arr = {-8,-4,-3,0,1,2,4,5,8,9};
+		printTwo(arr,10);
+		printThree(arr, 10);
+	}
+
+	//打印2元组
+	public static void printTwo(int[] arr,int k){
+		if(arr==null || arr.length==0){
+			return ;
+		}
+		int i = 0, j = arr.length-1;
+		while(i<j){
+			int temp = arr[i] + arr[j];
+			if(temp == k){             //这里要保证数据不会重复
+				if(i==0 || arr[i-1]!=arr[i]){
+					System.out.println(arr[i]+" "+arr[j]);
+					i++;
+					j--;
+				}
+			}
+			else if(temp > k){
+				j--;
+			}
+			else {
+				i++;
+			}
+		}
+	}
+	
+	//打印三元组
+	public static void printThree(int[] arr,int k){
+		if(arr==null || arr.length==0){
+			return ;
+		}
+		//找第一个数
+		for(int i=0;i<arr.length-2;i++){
+			print(arr,i,i+1,arr.length-1,k);
+		}
+	}
+	public static void print(int[] arr,int i,int left,int right,int k){
+		int sum = k-arr[i];
+	    while(left<right){
+	    	int temp = arr[left]+arr[right];
+	    	if(temp<sum){
+	    		left++;
+	    	}
+	    	else if(temp>sum){
+	    		right--;
+	    	}
+	    	else{
+	    		if(arr[left-1]!=arr[left]){
+	    			System.out.println(arr[i]+" "+arr[left]+" "+arr[right]);
+	    			left++;
+	    			right--;
+	    		}
+	    	}
+	    }
+		
+		
+	}
+	
+	
+	
+	
+}

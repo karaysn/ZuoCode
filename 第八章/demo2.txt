@@ -1,0 +1,29 @@
+package chapter8;
+
+//将正方形矩阵顺时针旋转90度
+public class demo2 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int[][] arr = {{1,2,3},{4,5,6},{7,8,9},{10,11,12}};
+		arr = rever(arr);
+		for(int i=0;i<arr.length;i++){
+			for(int j=0;j<arr[0].length;j++){
+				System.out.print(arr[i][j]+" ");
+			}
+		}
+	}
+	
+	public static int[][] rever(int[][] arr){
+		int[][] newarr = new int[arr[0].length][arr.length];
+		for(int i=0;i<newarr.length;i++){
+			for(int j=0;j<newarr[0].length;j++){
+				newarr[i][j] = arr[arr.length-1-j][i];
+			}
+		}
+		return newarr;
+	}
+
+}
