@@ -1,0 +1,30 @@
+package chapter8;
+
+//自然数组的排序
+public class demo13 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int[] arr = {2,3,4,1,5};
+		sort(arr);
+		for(int i=0;i<arr.length;i++){
+			System.out.print(arr[i]+" ");
+		}
+	}
+	
+	public static void sort(int[] arr){
+		if(arr==null ||arr.length==0){
+			return ;
+		}
+		for(int i=0;i<arr.length;i++){
+			while(arr[i] != i+1){
+				int temp = arr[arr[i]-1];  //交换
+				arr[arr[i]-1] = arr[i];
+				arr[i] = temp;
+			}
+		}
+	}
+
+}
