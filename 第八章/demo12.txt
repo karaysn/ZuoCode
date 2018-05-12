@@ -1,0 +1,72 @@
+package chapter8;
+
+//未排序数组中累加和小于或等于给定值的最长子数组长度
+public class demo12 {
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int[] arr = {0,-10,3,-2,-4,0,6,9};
+		int a = test1(arr,-3);
+		int b = test2(arr,-3);
+		System.out.println(a+"  "+b);
+	}
+	
+	//暴力法
+	public static int test1(int[] arr,int k){
+		if(arr==null || arr.length==0){
+			return -1;
+		}
+		int len = Integer.MIN_VALUE;
+		int sum = 0;
+		for(int i=0;i<arr.length;i++){
+			for(int j = i;j<arr.length;j++){
+				sum += arr[j];
+				if(sum<=k){
+					len = Math.max(j-i+1, len);
+				}
+			}
+			sum = 0;
+		}
+		return len;
+	}
+
+	//书上的方法
+	public static int test2(int[] arr,int k){
+		if(arr==null || arr.length==0){
+			return -1;
+		}
+		int[] help = new int[arr.length+1];
+		int sum = 0;
+		int len = 0;
+		int res = 0;
+		help[0] = 0;
+		//建立help数组，该数组维护了一个最大值
+		for(int i=0;i<arr.length;i++){
+			sum += arr[i];
+			help[i+1] = Math.max(help[i], sum);
+		}
+		
+		sum = 0;
+		for(int i=0;i<arr.length;i++){
+			sum += arr[i];
+			int index = findIndex(help,sum-k);
+			len = index==-1?0:i-index+1;
+			res = Math.max(res, len);
+		}
+		return res;
+		
+	}
+	//用二分法查找，就用普通的查找的也行，简单粗暴
+	public static int findIndex(int[] help,int num){
+		for(int i=0;i<help.length;i++){
+			if(help[i] >= num){
+				return i;
+			}
+		}
+		return -1;//help数组不存在这个这样的数据，也就是说这个以上面这个数结尾的符合要求的不存在
+	}
+	
+	
+	
+}
