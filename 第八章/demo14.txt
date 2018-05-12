@@ -1,0 +1,40 @@
+package chapter8;
+
+//奇数下标都是奇数或者偶数下标都是偶数
+public class demo14 {
+
+	/**
+	    主要抓住最后一个数字，然后进行交换
+	*/
+	public static void main(String[] args) {
+		int[] arr = {1,8,3,2,4,6};
+		modify(arr);
+		for(int i=0;i<arr.length;i++){
+			System.out.print(arr[i]+" ");
+		}
+	}
+	
+	public static void modify(int[] arr){
+		if(arr==null ||arr.length==0){
+			return ;
+		}
+		int odd = 1,even = 0;         //odd是奇数，even是偶数
+		while(odd<=arr.length-1 && even<=arr.length-1){
+			if(arr[arr.length-1]%2==1){
+				swap(arr,arr.length-1,odd);
+				odd += 2;
+			}
+			else{
+				swap(arr,arr.length-1,even);
+				even += 2;
+			}
+		}
+	}
+	
+	public static void swap(int[] arr,int i,int j){
+		int temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
+	}
+
+}
