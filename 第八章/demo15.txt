@@ -1,0 +1,50 @@
+package chapter8;
+
+//子数组的最大累加和(滴滴)
+public class demo15 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int[] arr = {1,-2,3,5,-2,6,-1};
+//		int[] arr = {-111,2,3,4,5,-6};
+		int res = findMaxSum(arr);
+		int res1 = findMaxSum1(arr);
+		System.out.println(res+" "+res1);
+	}
+	
+	public static int findMaxSum(int[] arr){
+		if(arr==null || arr.length==0){
+			return -1;
+		}
+		int max = Integer.MIN_VALUE;
+		int sum = arr[0];
+		for(int i=1;i<arr.length;i++){
+			if(sum < 0){
+				sum = arr[i];
+			}
+			else{
+				sum += arr[i];
+			}
+			max = Math.max(sum,max);
+		}
+		return max;
+	}
+
+	public static int findMaxSum1(int[] arr){
+		if(arr==null || arr.length==0){
+			return -1;
+		}
+		int max = Integer.MIN_VALUE;
+		int cur = 0;
+		for(int i=0;i<arr.length;i++){
+			cur += arr[i];
+			max = Math.max(max, cur);
+			cur = cur<0?0:cur;
+		}
+		return max;
+	}
+	
+
+}
