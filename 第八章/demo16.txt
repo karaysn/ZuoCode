@@ -1,0 +1,40 @@
+package chapter8;
+
+//子矩阵的最大累加和
+public class demo16 {
+
+	/**
+	 * 
+	 */
+	public static void main(String[] args) {
+//		int[][] arr = {{-90,48,78},{64,-40,64},{-81,-7,66}};
+		int[][] arr = {{-1,-1,-1},{-1,2,2},{-1,-1,-1}};
+		int res = maxSum(arr);
+		System.out.println(res);
+	}
+	
+	public static int maxSum(int[][] arr){
+		if(arr==null || arr.length==0){
+			return -1;
+		}
+		int max = Integer.MIN_VALUE;
+		int cur = 0;
+		int[] s = null;                //累加数组
+		for(int i=0;i<arr.length;i++){
+			s = new int[arr[0].length];//重新生成一下数组
+			for(int j=i;j<arr.length;j++){
+				cur = 0;               //表示在每一次求数组的最大值的时候更新一下当前值
+				//在这个s数组里面找最大累加和
+				for(int k=0;k<s.length;k++){             
+					 s[k] += arr[j][k];
+					 cur += s[k];
+					 max = Math.max(max, cur);
+					 cur = cur<0?0:cur;
+				}
+			}
+		}
+		return max;
+	}
+	
+
+}
