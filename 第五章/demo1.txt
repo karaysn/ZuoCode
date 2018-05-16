@@ -1,0 +1,46 @@
+package chapter5;
+import java.util.Stack;
+//判断两个字符串是否为变形词语
+public class Demo1 {
+
+	public static void main(String[] args) {
+		String str1 = "12338";
+		String str2 = "32121";
+		System.out.println(test(str1,str2));
+		System.out.println(test2(str1,str2));
+	}
+	public static boolean test(String str1,String str2){
+		if(str1==null || str2==null ||str1.length()!=str2.length()){       //首先判断字符串长度
+			return false;
+		}
+		int[] arr = new int[256];
+		for(int i=0;i<str1.length();i++){
+			arr[str1.charAt(i)]++;
+		}
+		for(int j=0;j<str2.length();j++){
+			if(--arr[str2.charAt(j)]<0){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	//用栈也可以
+	public static boolean test2(String str1,String str2){
+		if(str1==null ||str2==null ||str1.length()!=str2.length()){
+			return false;
+		}
+		Stack<Character> stack = new Stack<Character>();
+		int j = 0;
+		for(int i=0;i<str1.length();i++){
+			stack.push(str1.charAt(i));
+			while(!stack.isEmpty() && stack.peek()==str2.charAt(j)){
+				j++;
+				stack.pop();
+			}
+		}
+		return stack.isEmpty()?true:false;
+	}
+	
+	
+}
