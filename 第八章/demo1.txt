@@ -22,7 +22,7 @@ public class demo1 {
 		}
 	}
 
-	//先删除第一行，在反转
+	//先删除第一行，在反转,反转的时候要注意下标
 	public static int[][] rever(int[][] arr){
 		int[][] newarr = new int[arr[0].length][arr.length-1];
 		for(int i=0;i<newarr.length;i++){
