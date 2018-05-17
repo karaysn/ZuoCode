@@ -1,0 +1,40 @@
+package chapter8;
+
+//数组中子数组的最大累乘积
+public class demo18 {
+
+	/**
+	  写的简单点，就是分成三种情况来考虑，
+	 max，min分别表示i-1结尾的最大积和最小积
+	以arr[i]结尾的最大乘机取值  三种情况分别是 arr[i]
+	   min*arr[i], max*arr[i]
+	 */
+	public static void main(String[] args) {
+		double[] arr = {-2.5,4,0,3,0.5,8,-1};
+		double res = findMaxProduct(arr);
+		System.out.println(res);
+	}
+	
+	public static double findMaxProduct(double[] arr){
+		if(arr==null || arr.length==0){
+			return -100;
+		}
+		double max = arr[0],min = arr[0],res = arr[0];
+		for(int i=1;i<arr.length;i++){
+			max = findMax(arr[i],max*arr[i],min*arr[i]);
+			min = findMin(arr[i],max*arr[i],min*arr[i]);
+			res = Math.max(res, max);
+		}
+		return res;
+	}
+
+	public static double findMax(double a,double b,double c){
+		double temp = a>b?a:b;
+		return c>temp?c:temp;
+	}
+	
+	public static double findMin(double a,double b,double c){
+		double temp = a>b?b:a;
+		return c<temp?c:temp;
+	}
+}
