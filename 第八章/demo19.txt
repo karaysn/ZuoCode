@@ -1,0 +1,38 @@
+package chapter8;
+
+//不包含本位制值的累乘数组，不用除法
+public class demo19 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int[] arr = {1,2,3,4,5,6};
+		int[] res = production1(arr);
+		for(int i=0;i<res.length;i++){
+			System.out.print(res[i]+" ");
+		}
+	}
+	
+	//其实可以用剑指offer那个大神的图来理解
+	public static int[] production1(int[] arr){
+		if(arr==null || arr.length==0){
+			return null;
+		}
+		int[] res = new int[arr.length];
+		//左下角三角形
+		res[0] = 1;
+		for(int i=1;i<arr.length;i++){
+			res[i] = res[i-1]*arr[i-1];
+		}
+		//右上角三角形
+		int temp = 1;
+		for(int j=arr.length-2;j>=0;j--){
+			temp = temp*arr[j+1];
+			res[j] = res[j]*temp;
+		}
+		return res;
+	}
+	
+
+}
