@@ -1,0 +1,69 @@
+package chapter8;
+
+//数组的partition调整
+public class demo20 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int[] arr = {1,2,2,3,3,3,4,5,6};
+	    leftUnique(arr);
+		for(int i=0;i<arr.length;i++){
+			System.out.print(arr[i]+" ");
+		}
+		
+		System.out.println();
+		
+		int[] arr1 = {1,2,0,1,1,0,0,2,2};
+		sort(arr1,1);
+		for(int i=0;i<arr1.length;i++){
+			System.out.print(arr1[i]+" ");
+		}
+	}
+	
+	//调整有序数组,这个数组是有序的，但是有重复
+	public static void leftUnique(int[] arr){
+		if(arr==null || arr.length==0){
+			return;
+		}
+		int left = 0;
+		for(int i=1;i<arr.length;i++){
+			if(arr[i]!=arr[left]){
+				left++;
+				swap(arr,left,i);
+			}
+		}
+	}
+	
+	//补充题目，把0放在左边，1放在中间，2放在右边
+	public static void sort(int[] arr,int k){
+		if(arr==null || arr.length==0){
+			return ;
+		}
+		int left = -1,right = arr.length;
+		for(int i=0;i<right;){
+			if(arr[i]<k){
+				left++;
+				swap(arr,left,i);
+				i++;
+			}
+			else if(arr[i]>k){
+				right--;
+				swap(arr,right,i);
+			}
+			else{
+				i++;
+			}
+		}
+	}
+	
+
+	
+	public static void swap(int[] arr,int i,int j){
+		int temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
+	}
+	
+}
