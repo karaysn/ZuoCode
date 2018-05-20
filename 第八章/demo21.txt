@@ -1,0 +1,57 @@
+package chapter8;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+//求最短通路径
+public class demo21 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int[][] arr = {{1,0,1,1,1},{1,0,1,0,1},{1,1,1,0,1},{0,0,0,0,1}};
+		int res = minPath(arr);
+		System.out.println(res);
+	}
+
+	public static int minPath(int[][] arr){
+		if(arr==null ||arr.length==0 ||arr[0].length==0||arr[0][0]!=1
+				||arr[arr.length-1][arr[0].length-1]!=1){
+			return 0;
+		}
+		int[][] map = new int[arr.length][arr[0].length]; //辅助数组
+		Queue<Integer> rq = new LinkedList<Integer>();
+		Queue<Integer> cq = new LinkedList<Integer>();
+		map[0][0] = 1;
+		rq.add(0);	
+	    cq.add(0);
+	    int r = 0;
+	    int c = 0;
+	    while(!rq.isEmpty()){
+	    	//当前位置
+	    	r = rq.poll();
+	    	c = cq.poll();
+	    	//判断一下是不是到了最后
+	    	if(r==arr.length-1 && c==arr[0].length-1){    	
+	    		return map[r][c];
+	    	}
+	    	walk(map[r][c],r-1,c,rq,cq,map,arr);
+	    	walk(map[r][c],r+1,c,rq,cq,map,arr);
+	    	walk(map[r][c],r,c-1,rq,cq,map,arr);
+	    	walk(map[r][c],r,c+1,rq,cq,map,arr);
+	    }
+	    return 0;
+	}
+	
+	public static void walk(int cur,int tor,int toc,Queue<Integer> rq,
+			Queue<Integer> cq,int[][] map,int[][] arr){
+		if(tor<0 ||tor>arr.length-1||toc<0||toc>arr[0].length-1||
+				arr[tor][toc]!=1||map[tor][toc]!=0){
+			return;
+		}
+		map[tor][toc] = cur+1;
+		rq.add(tor);
+		cq.add(toc);
+	}
+}
