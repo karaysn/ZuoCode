@@ -8,8 +8,8 @@ public class Kmp {
 	public static void main(String[] args) {
 		String str = "kkkabcecabc";
 		String msg = "abc";
-	    int res = Kmp(str,msg);
-	    System.out.println(res);
+	        int res = Kmp(str,msg);
+	        System.out.println(res);
 	}
 	
 	public static int Kmp(String str,String msg){
@@ -29,11 +29,9 @@ public class Kmp {
 		if(j==msg.length()){
 			return i-j;
 		}
-		return -1;
-		
+		return -1;		
 	}
-	
-	
+		
 	public static int[] getNext(String msg){
 		if(msg==null || msg.length()==0){
 			return null;
@@ -50,7 +48,5 @@ public class Kmp {
 			}
 		}
 		return arr;
-	}
-	
-
+	}	
 }
