@@ -1,0 +1,50 @@
+package chapter5;
+
+//字符串中数字子串的求和
+public class demo2_1 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		String str = "123.5--6.9";
+		String str1 = "o395.34t,36,7";
+		int res = numSum(str);
+		int res1 = numSum(str1);
+		System.out.println(res+" "+res1);
+	}
+	
+	public static int numSum(String str){
+		if(str==null || str.length()==0){
+			return 0;
+		}
+		int sum = 0;        	//总和
+		int cur = 0;			//当前值
+		boolean pos = true;     //正负标志位
+		for(int i=0;i<str.length();i++){
+			int temp = str.charAt(i)-'0';
+			//是数字
+			if(temp>=0 && temp<=9){
+				cur = cur*10+temp*(pos?1:-1);   //当前值
+			}
+			//不是数字
+			else{
+				sum += cur;
+				cur = 0;       
+				if(i>0 && str.charAt(i)=='-'){
+					if(i>0 && str.charAt(i-1)=='-'){
+						pos = true;
+					}
+					else{
+						pos = false;
+					}
+				}
+			}
+		}
+		sum += cur;
+		return sum;
+		
+	}
+	
+
+}
