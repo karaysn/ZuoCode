@@ -18,9 +18,9 @@ public class demo2_1 {
 		if(str==null || str.length()==0){
 			return 0;
 		}
-		int sum = 0;        	//总和
+		int sum = 0;        	        //总和
 		int cur = 0;			//当前值
-		boolean pos = true;     //正负标志位
+		boolean pos = true;             //正负标志位
 		for(int i=0;i<str.length();i++){
 			int temp = str.charAt(i)-'0';
 			//是数字
@@ -42,9 +42,6 @@ public class demo2_1 {
 			}
 		}
 		sum += cur;
-		return sum;
-		
-	}
-	
-
+		return sum;		
+	}	
 }
