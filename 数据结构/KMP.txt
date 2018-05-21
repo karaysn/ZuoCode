@@ -1,0 +1,56 @@
+
+//KMP算法
+public class Kmp {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		String str = "kkkabcecabc";
+		String msg = "abc";
+	    int res = Kmp(str,msg);
+	    System.out.println(res);
+	}
+	
+	public static int Kmp(String str,String msg){
+		if(str==null || msg==null){
+			return -1;
+		}
+		int[] next = getNext(msg);
+		int i = 0, j = 0;
+		while(i<str.length() && j<msg.length()){
+		    if(j==-1 || str.charAt(i)==msg.charAt(j)){
+		    	i++; j++;
+		    }
+		    else{
+		    	j = next[j];
+		    }
+		}
+		if(j==msg.length()){
+			return i-j;
+		}
+		return -1;
+		
+	}
+	
+	
+	public static int[] getNext(String msg){
+		if(msg==null || msg.length()==0){
+			return null;
+		}
+		int[] arr = new int[msg.length()];
+		arr[0] = -1;
+		int i = -1, j =0;
+		while(j<msg.length()-1){
+			if(i==-1 || msg.charAt(i)==msg.charAt(j)){
+				arr[++j] = ++i;
+			}
+			else{
+				i = arr[i];
+			}
+		}
+		return arr;
+	}
+	
+
+}
