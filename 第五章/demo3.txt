@@ -1,0 +1,88 @@
+package chapter5;
+
+//去掉连续出现k个0的子串
+public class demo3 {
+
+	public static void main(String[] arfs){
+		String str = "000100400004000";
+//		System.out.println(str.indexOf("4000"));
+		System.out.println(test(str,3));
+		System.out.println(test1(str,3));
+	}
+	public static String test1(String str,int k){
+		if(k==0){
+			return str;
+		}
+		if(str==null){
+			return null;
+		}
+		StringBuilder sb = new StringBuilder(str);
+		int count = 0;
+		
+		for(int i=0;i<sb.length();i++){
+			if(sb.charAt(i)=='0'){
+				count++;
+			}
+			else{
+				if(count==k){
+					for(int j=i-1;count>0;j--,count--){
+						sb.deleteCharAt(j);
+					}
+				}
+				//无论k和count是否相等，都要清0一下
+				count = 0;
+			}
+		}
+		//最后还要再判断一次k和count是否相等
+		if(count==k){
+			for(int j=sb.length()-1;count>0;j--,count--){
+				sb.deleteCharAt(j);
+			}
+		}
+		return sb.toString();
+	}
+	
+	
+	public static String test(String str,int k){
+		if(k==0){
+			return str;
+		}
+		if(str==null||str.length()==0){
+			return null;
+		}
+		char[] arr = str.toCharArray();
+		int count = 0;
+		int start = -1;
+		StringBuilder sb = new StringBuilder();
+		
+		for(int i=0;i!=arr.length;i++){
+			if(arr[i] == '0'){
+				count++;
+				start = start==-1?i:start;
+			}
+			else{
+				if(count==k){
+					//要开始删除0
+					while(count--!=0){
+						arr[start++] = 0;
+					}
+				}
+				start = -1;
+				count = 0;
+			}
+		}
+		if(count==k){
+			while(count--!=0){
+				arr[start++] = 0;
+				
+			}
+		}
+		
+		for(int i=0;i<arr.length;i++){
+			if(arr[i]!=0){
+				sb.append(arr[i]);
+			}
+		}
+		return sb.toString();
+	}
+}
