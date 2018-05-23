@@ -1,0 +1,27 @@
+package chapter5;
+
+//判断两个词是否为互旋词
+public class demo4 {
+
+	/**
+	 题目只要求是否为互旋词，不然就要用KMP算法来求出下标
+	 */
+	public static void main(String[] args) {
+		String str1 = "abcd";
+		String str2 = "cdab";
+		String str3 = "erty";
+		String str4 = "tyer";
+		System.out.println(isRotation(str1,str2));
+		System.out.println(isRotation(str3,str4));
+	}
+	
+	public static boolean isRotation(String str1,String str2){
+		if(str1==null || str1.length()==0 ||str2==null || str2.length()==0
+				||str1.length()!=str2.length()){
+			return false;
+		}
+		String temp = str2 +str2;
+		return temp.contains(str1);
+	}
+
+}
