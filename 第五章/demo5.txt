@@ -1,0 +1,58 @@
+package chapter5;
+
+//替换字符串中连续出现的指定字符串
+public class demo6 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+	//	String str = "123abc123";
+		String str = "1234123abc123123123";
+		String from = "123";
+		String to = "4567";
+		
+		String res = replace(str,from,to);
+		System.out.println(res);
+	}
+	
+	public static String replace(String str,String from,String to){
+		if(str==null || str.length()==0 ){
+			return null;
+		}
+		int start = -1,j = 0;
+		StringBuilder sb = new StringBuilder(str);
+		for(int i=0;i<sb.length();){
+			if(sb.charAt(i)==from.charAt(j)){
+				start = start==-1?i:start;   
+				j++;
+				i++;
+			}
+			if(j==from.length()){
+				j = 0;
+				sb.delete(start,start+from.length());
+				i = i-from.length();
+			}
+			if(i<sb.length()){
+				if(start!=-1 && sb.charAt(i)!=from.charAt(j)){
+					sb.insert(start,to);
+					start = -1;
+					i = i+to.length();
+				}
+			}
+			else{
+				if(start!=-1){
+					sb.append(to);
+					start = -1;
+					i = i+to.length();
+				}
+			}
+			
+			if(i<sb.length() && start ==-1 && sb.charAt(i)!=from.charAt(j)){
+				i++;
+			}
+		}
+		return sb.toString();
+	}
+
+}
