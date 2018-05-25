@@ -1,0 +1,67 @@
+package chapter5;
+
+import java.awt.image.ConvolveOp;
+
+//字符串的统计字符串
+public class demo7 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+//		String str = "aabbccddff";
+//		String res = getCountString(str);
+//		System.out.println(res);
+		
+		String str1 = "a_1_b_10_c_40";
+		char result = getChar(str1, 50);
+		System.out.println(result);
+	}
+	
+	//第一个问题
+	public static String getCountString(String str){
+		if(str==null || str.length()==0){
+			return null;
+		}
+		StringBuilder sb = new StringBuilder();
+		char temp = str.charAt(0);
+		int num = 1;
+		for(int i=1;i<str.length();i++){
+			if(str.charAt(i) == temp){
+				num++;
+			}
+			else{
+				sb.append(temp+"_"+num+"_");
+				num = 1;
+				temp = str.charAt(i);
+			}
+		}
+		sb.append(temp+"_"+num);
+		return sb.toString();
+	}
+	
+	//第二个问题
+	public static Character getChar(String str,int num){
+		if(str==null ||str.length()==0 ||num<0){
+			return null;
+		}
+		String[] arr = str.split("_");
+		Character temp = null ;
+		int count = 0;
+		for(int i=0;i<arr.length;i++){
+			if(i%2==0){                  //偶数位,是字符
+				char[] Charr = arr[i].toCharArray();  //将字符串形式的a转为字符形式的a，我只会这么转
+				temp = Charr[0];
+			}
+			else{                        //奇数位，是数字
+				count += Integer.parseInt(arr[i]);
+			}
+			if(count>=num){
+				return temp;
+			}
+		}
+		return '1';              //用1表示无返回值
+	}
+	
+
+}
