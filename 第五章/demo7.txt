@@ -1,0 +1,83 @@
+package chapter5;
+
+import java.util.HashMap;
+
+//判断字符串中是否有所以的字符都只出现一次
+public class demo8 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		String str = "1233456";
+		boolean res1 = test1(str);
+		boolean res2 = test2(str);
+		System.out.println(res1+" "+res2);
+	}
+	
+	//方法一，就用HashMap来处理
+	public static boolean test1(String str){
+		if(str==null || str.length()==0){
+			return false;
+		}
+		HashMap<Character,Integer> map = new HashMap<Character,Integer>();
+		for(int i=0;i<str.length();i++){
+			if(map.containsKey(str.charAt(i))){
+				return false;
+			}
+			map.put(str.charAt(i),1);
+		}
+		return true;
+	}
+
+	//方法 二，空间复杂度是0(1),用的是堆排序
+	public static boolean test2(String str){
+		if(str==null || str.length()==0){
+			return false;
+		}
+		char[] arr = heapSort(str);
+		for(int i=0;i<arr.length-1;i++){
+			if(arr[i]==arr[i+1]){
+				return false;
+			}
+		}
+		return true;
+	}
+	
+	public static char[] heapSort(String str){
+		char[] arr = str.toCharArray();
+		for(int i=arr.length/2;i>=0;i--){
+			heapAdjust(arr,i,arr.length-1);
+		}
+		for(int i=arr.length-1;i>0;i--){
+			swap(arr,0,i);
+			heapAdjust(arr,0,i-1);
+		}
+		return arr;
+	}
+	
+	public static void swap(char[] arr,int i,int j){
+		char temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
+	}
+	
+	public static void heapAdjust(char[] arr,int low,int high){
+		char father = arr[low];
+		int childIndex = 2*low;
+		for(;childIndex<=high;childIndex*=2){
+			if(childIndex<high && arr[childIndex]<arr[childIndex+1]){
+				childIndex = childIndex+1;
+			}
+			if(father >= arr[childIndex]){
+				break;
+			}
+			else{
+				arr[low] = arr[childIndex];
+				low = childIndex;
+			}
+		}
+		arr[low] = father;
+	}
+	
+}
