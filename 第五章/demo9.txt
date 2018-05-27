@@ -1,0 +1,70 @@
+package chapter5;
+
+//翻转字符串
+public class demo11 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		String str1 = "dog loves pigs";
+		char[] ch1 = str1.toCharArray();
+		rotate1(ch1);
+		for(int i=0;i<ch1.length;i++){
+			System.out.print(ch1[i]+"");
+		}
+		System.out.println();
+		String str2 = "ABCDE";
+		char[] ch2 = str2.toCharArray();
+		rotate2(ch2,3);
+		for(int i=0;i<ch2.length;i++){
+			System.out.print(ch2[i]+"");
+		}
+	}
+	
+	//问题一，对字符数组做切割调整
+	//本来用split方法去切割，但是这样空间复杂度就不是0(1)了，所以用翻转的方法
+	public static void rotate1(char[] arr){
+		if(arr==null || arr.length==0){
+			return;
+		}
+		reverse(arr,0,arr.length-1);
+		int left = -1;
+		int right = -1;
+		for(int i=0;i<arr.length;i++){
+			if(arr[i]!=' '){
+				left = i==0||arr[i-1]==' '?i:left;
+				right = i==arr.length-1||arr[i+1]==' '?i:right;
+			}
+			if(left!=-1 && right!=-1){
+				reverse(arr,left,right);
+				left = -1;
+				right = -1;
+			}
+		}
+	}
+
+	//翻转函数
+	public static void reverse(char[] arr,int left,int right){
+		char temp = ' ';
+		while(left<right){
+			temp = arr[left];
+			arr[left] = arr[right];
+			arr[right] = temp;
+			left++;
+			right--;
+		}
+	}
+	
+	//问题二
+	public static void rotate2(char[] arr,int k){
+		if(arr==null || arr.length==0 ||k>=arr.length){
+			return;
+		}
+		reverse(arr,0,k-1);
+		reverse(arr,k,arr.length-1);
+		reverse(arr,0,arr.length-1);
+	}
+	
+	
+}
