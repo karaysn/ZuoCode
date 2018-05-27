@@ -1,0 +1,43 @@
+package paixu;
+
+public class XuanZePaiXu {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int[] arr = {13,4,1,8,5,8,44,11};
+		select(arr);
+		for(int i=0;i<arr.length;i++){
+			System.out.print(arr[i]+" ");
+		}
+		System.out.println();
+		int[] arr1 = {77,4,7,11,777,444,99,0,22};
+		select(arr1);
+		for(int i=0;i<arr1.length;i++){
+			System.out.print(arr1[i]+" ");
+		}
+
+	}
+	
+	public static void select(int[] arr){
+		if(arr==null || arr.length==0){
+			return;
+		}
+		int min = 0;
+		for(int i=0;i<arr.length-1;i++){
+			min = i;
+			for(int j=i+1;j<arr.length;j++){
+				if(arr[j]<arr[min]){
+					min = j;
+				}
+			}
+			if(min!=i){
+				int temp = arr[i];
+				arr[i] = arr[min];
+				arr[min] = temp;
+			}
+		}
+	}
+
+}
