@@ -1,0 +1,95 @@
+package paixu;
+
+public class HeapSort {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int[] arr = {13,4,1,8,5,9,44,66};
+		heapSort(arr);
+		for(int i=0;i<arr.length;i++){
+			System.out.print(arr[i]+" ");
+		}
+		System.out.println();
+		int[] arr1 = {77,4,7,11,777,444,99,0,22};
+		heapSort(arr1);
+		for(int i=0;i<arr1.length;i++){
+			System.out.print(arr1[i]+" ");
+		}
+	}
+	
+	public static void heapSort(int[] arr){
+		if(arr==null || arr.length==0){
+			return ;
+		}
+		//构建堆
+		for(int i=arr.length/2;i>=0;i--){
+			heapAdjust(arr,i,arr.length-1);
+		}
+		for(int i=arr.length-1;i>0;i--){
+			swap(arr,i,0);
+			heapAdjust(arr,0,i-1);
+		}
+	}
+	
+	public static void heapAdjust(int[] arr,int low,int high){
+		int father = arr[low];
+		int childIndex = low*2;
+		for(;childIndex<=high;childIndex*=2){
+			if(childIndex<high && arr[childIndex]<arr[childIndex+1]){
+				childIndex++;
+			}
+			if(father>=arr[childIndex]){
+				break;
+			}
+			else{
+				arr[low] = arr[childIndex];
+				low = childIndex;
+			}
+		}
+		arr[low] = father;
+	}
+	
+//	public static void heapSort(int[] arr){
+//		if(arr==null || arr.length==0){
+//			return;
+//		}
+//		//首先构建一个大顶堆
+//		for(int i=arr.length/2;i>=0;i--){
+//			heapAdjust(arr,i,arr.length-1);
+//		}
+//		//交换堆顶和最后一位数字，对堆重新构建大顶堆
+//		for(int i=arr.length-1;i>0;i--){
+//			swap(arr,0,i);     
+//			heapAdjust(arr,0,i-1);   //注意这里别写太快了，这里是构建不包括最后一位的大顶堆
+//		}
+//	}
+//	
+//
+//	//构建大顶堆
+//	public static void heapAdjust(int[] arr,int low,int high){
+//		int father = arr[low];
+//		int childIndex = low*2;
+//		for(;childIndex<=high;childIndex*=2){
+//			if(childIndex<high && arr[childIndex]<arr[childIndex+1]){
+//				childIndex++;
+//			}
+//			if(father>=arr[childIndex]){      //这里等号不可以少
+//				break;
+//			}
+//			else{
+//				arr[low] = arr[childIndex];
+//				low = childIndex;
+//			}
+//		}
+//		arr[low] = father;
+//	}
+	
+	public static void swap(int[] arr,int i,int j){
+		int temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
+	}
+	
+}
