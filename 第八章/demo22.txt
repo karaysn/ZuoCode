@@ -1,0 +1,46 @@
+package chapter8;
+
+//数组中未出现的最小正整数
+public class demo22 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int[] arr = {1,2,3,4,5};
+		int[] arr1 = {-1,4,2,3,7};
+		int res = findMin(arr);
+		int res1 = findMin(arr1);
+		System.out.print(res+" "+res1);
+	}
+	
+	private static int findMin(int[] arr){
+		if(arr==null ||arr.length==0){
+			return -1;
+		}
+		int left = 0;            //表示循环到当前位置时候，满足条件的最小正整数
+		int right = arr.length;  //表达循环到当前位置时候，假设之后的循环都是最优的，目前最大的是right
+		while(left<right){
+			if(arr[left]==left+1){
+				left++;
+			}
+			//这三种情况就是 一个是超过了right的值，一个小于left+1，一个和left+1到right之间有重复值
+			else if(arr[left]<left+1 || arr[left]>right ||arr[left]==arr[arr[left]-1]){
+				right--;
+				arr[left] = arr[right];
+			}
+			else{
+				swap(arr,left,arr[left]-1);
+			}
+		}
+		return left+1;
+	}
+	
+	private static void swap(int[] arr,int i,int j){
+		int temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
+	}
+	
+
+}
