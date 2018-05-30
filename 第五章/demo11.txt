@@ -1,0 +1,68 @@
+package chapter5;
+
+//括号字符串的有效性和最长有效长度
+public class demo13 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		String str1 = "()(())";
+		String str2 = "((()))";
+		System.out.println(isValid(str1)+" "+isValid(str2));
+		int res = findMaxLength(str1);
+		System.out.println(res);
+	}
+
+	//判断字符串括号有效性，也可以考虑用一个栈来处理
+	private static boolean isValid(String str){
+		if(str==null || str.length()==0){
+			return false;
+		}
+		int status = 0;
+		for(int i=0;i<str.length();i++){
+			if(str.charAt(i)=='('){
+				status++;
+			}
+			else if(str.charAt(i)==')'){
+				status--;
+				if(status<0){
+					return false;
+				}
+			}
+			else{
+				return false;
+			}
+		}
+		if(status==0){
+			return true;
+		}
+		return false;
+	}
+	
+	//找最长的括号长度
+	private static int findMaxLength(String str){
+		//不符合要求的字符串
+		if(!isValid(str)){
+			return -1;
+		}	
+		//用动态规划，假设 arr[i]的位置就是此时括号的最大长度
+		int[] arr = new int[str.length()];
+		arr[0] = 0;      //开始第一个位置肯定不能构成最长的字符串
+		int max = 0;
+		for(int i=1;i<str.length();i++){
+			if(str.charAt(i)==')'){
+				int pre = i-arr[i-1]-1;
+				if(str.charAt(pre)=='('){
+					arr[i] = arr[i-1]+2;
+				}
+				if(pre>0 && arr[pre-1]>0){
+					arr[i] += arr[pre-1];	
+				}
+			}
+			max = Math.max(max, arr[i]);
+		}
+		return max;
+	}
+	
+}
