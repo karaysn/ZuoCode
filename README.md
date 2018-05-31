@@ -8,6 +8,7 @@
 [问题三 插入排序](/数据结构/chaRu.txt)<br>
 [问题四 选择排序](/数据结构/xuanZe.txt)<br>
 [问题五 堆排序](/数据结构/heapSort.txt)<br>
+[问题六 快速排序](/数据结构/kuaiPai.txt)<br>
 
 第五章
 ---
