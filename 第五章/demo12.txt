@@ -1,0 +1,34 @@
+package chapter5;
+
+import java.util.Arrays;
+import java.util.Comparator;
+
+//拼接左右字符串产生字典序顺序最小的字符串
+//找数组也是一样，记得把数组先转为字符串再处理一下
+public class demo14 {
+	
+	public static void main(String[] args) {
+		String[] arr = {"3","32","321"};
+		String res = findMin(arr);
+		System.out.println(res);
+	}
+	
+	private static String findMin(String[] arr){
+		if(arr==null ||arr.length==0){
+			return null;
+		}
+		Arrays.sort(arr, new MyCompare());     //底层是用了归并排序
+		String res = "";
+		for(int i=0;i<arr.length;i++){
+			res += arr[i];
+		}
+		return res;
+	}
+}
+
+class MyCompare implements Comparator<String>{
+	@Override
+	public int compare(String o1, String o2) {
+		return (o2+o1).compareTo(o1+o2);
+	}
+}
