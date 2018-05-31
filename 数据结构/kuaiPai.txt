@@ -1,0 +1,72 @@
+package paixu;
+
+public class KuaiPai {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int[] arr = {13,4,1,8,5,8,44,11};
+		quickSort(arr);
+		for(int i=0;i<arr.length;i++){
+			System.out.print(arr[i]+" ");
+		}
+		System.out.println();
+		int[] arr1 = {77,4,7,11,777,444,99,0,22};
+		quickSort(arr1);
+		for(int i=0;i<arr1.length;i++){
+			System.out.print(arr1[i]+" ");
+		}
+	}
+	
+	private static void quickSort(int[] arr){
+		if(arr==null ||arr.length==0){
+			return;
+		}
+		sort(arr,0,arr.length-1);
+	}
+	
+	private static void sort(int[] arr,int low,int high){
+		int i = low, j = high;
+		int temp = arr[low];   //枢轴
+		while(i<j){
+			while(i<j&&arr[j]>=temp){     //i<j不可以少，不然会报错的
+				j--;
+			}
+			arr[i] = arr[j];
+			while(i<j&&arr[i]<=temp){
+				i++;
+			}
+			arr[j] = arr[i];
+			arr[i] = temp;
+			sort(arr,low,i-1);
+			sort(arr,i+1,high);
+		}
+	}
+	
+//	public static void quickSort(int[] arr){
+//		if(arr==null || arr.length==0){
+//			return;
+//		}
+//		sort(arr,0,arr.length-1);
+//	}
+//	
+//	public static void sort(int[] arr,int low,int high){
+//		int i = low, j = high;
+//		int temp = arr[low];            //枢轴
+//		while(i<j){
+//			while(i<j && arr[j]>=temp){
+//				j--;
+//			}
+//			arr[i] = arr[j];
+//			while(i<j && arr[i]<=temp){
+//				i++;
+//			}
+//			arr[j] = arr[i];
+//			arr[i] = temp;
+//			sort(arr,low,i-1);
+//			sort(arr,i+1,high);
+//		}
+//	}
+
+}
