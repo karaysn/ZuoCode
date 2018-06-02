@@ -1,0 +1,70 @@
+package chapter5;
+//找到被指的新类型字符
+public class demo16 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		String str = "aaABCDEcBCg";
+		int k1 = 7;
+		int k2 = 4;
+		int k3 = 10;
+		System.out.println(findString1(str,k1));
+		System.out.println(findString1(str,k2));
+		System.out.println(findString1(str,k3));
+		System.out.println(findString2(str,k1));
+		System.out.println(findString2(str,k2));
+		System.out.println(findString2(str,k3));
+	}
+
+	//自己的笨方法
+	private static String findString1(String str,int k){
+		if(str==null || str.length()==0 ||k>=str.length()){
+			return null;
+		}
+		String res = "";
+		for(int i=0;i<str.length();){
+			if(str.charAt(i)>='a' &&str.charAt(i)<='z'){
+				res = str.charAt(i)+"";
+				if(i==k){
+					return res;
+				}
+				i++;
+			}
+			else{
+				res = str.charAt(i)+""+str.charAt(i+1);
+				if(i==k || (++i)==k){
+					return res;
+				}
+				i++;
+			}
+		}
+		return null;
+	}
+	
+	//书上的方法,其实也就是找到规律了
+	private static String findString2(String str,int k){
+		if(str==null ||str.length()==0 ||k>=str.length()){
+			return null;
+		}
+		//从后面开始找
+		int count = 0;
+		for(int i=k-1;k>=0;){
+			if(str.charAt(i)<='z' &&str.charAt(i)>='a'){
+				break;
+			}
+			count++;i--;
+		}
+	   //偶数
+	   if(count%2==0){
+			if(str.charAt(k)<='z' &&str.charAt(k)>='a'){
+				return ""+str.charAt(k);
+			}
+			return str.charAt(k)+""+str.charAt(k+1);
+		}
+	   //奇数
+	   return str.charAt(k-1)+""+str.charAt(k);
+	}
+	
+}
