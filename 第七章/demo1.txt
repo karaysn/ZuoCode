@@ -1,0 +1,34 @@
+package chapter7;
+
+//通过位运算来交换两个数字
+public class demo1 {
+
+	public static void main(String[] args) {
+		int[] arr = {1,2,3,4,5,6};
+		change1(arr,0,1);
+		change2(arr,2,3);
+		change3(arr,4,5);
+		for(int i=0;i<arr.length;i++){
+			System.out.print(arr[i]+" ");
+		}
+	}
+	//最普通的交换
+	private static void change1(int[] arr,int i,int j){
+		int temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
+	}
+	//第二种方法
+    private static void change2(int[] arr,int i,int j){
+		 arr[i] = arr[i] + arr[j];
+		 arr[j] = arr[i] - arr[j];
+		 arr[i] = arr[i] - arr[j];
+	}
+    //第三种方法，位交换
+    private static void change3(int[] arr,int i,int j){
+		arr[i] = arr[i]^arr[j];
+		arr[j] = arr[i]^arr[j];
+		arr[i] = arr[i]^arr[j];
+	}
+
+}
