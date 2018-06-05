@@ -1,0 +1,56 @@
+package chapter7;
+
+//用位运算实现加法除法乘法，除法不会
+public class demo2 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+//		int a = 2,b=5;
+//		int sum = add(a,b);
+//		System.out.println(sum);
+//		int a1 = 2,b1=-2147483648;
+//		int res = sub(a1,b1);
+//		System.out.println(res);
+		int a2 = 2,b2 = -9;
+		int res1 = mul(a2,b2);
+		System.out.println(res1);
+	}
+
+	//加法
+	private static int add(int a,int b){
+		int sum = a;     //这个地方会影响乘法，它是a
+		while(b!=0){
+			sum = a^b;
+			b = (a&b)<<1;
+			a = sum;
+		}
+		return sum;
+	}
+	
+	//减法，加法的反过来运算 
+	private static int sub(int a,int b){
+		if(b==0){
+			return -1;
+		}
+		int B = add(~b,1);  // -b = (~b)+1
+		int res = add(a,B);
+		return res;
+	}
+	
+	//乘法
+	private static int mul(int a,int b){
+		int res = 0;
+		while(b!=0){
+			if((b&1)!=0){
+				res = add(res,a);
+			}
+			a<<=1;     //a左移
+			b>>>=1;    //b无符号右移
+		}
+		return res;
+	}
+	
+	
+}
