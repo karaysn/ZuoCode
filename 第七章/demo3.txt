@@ -1,0 +1,36 @@
+package chapter7;
+
+//一个数字的二进制表达式中1的个数
+public class demo3 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int num = -3;
+		int res = count1(num);
+		int res1 = count2(num);
+		System.out.println(res+" "+res1);
+	}
+
+	//方法一
+	private static int count1(int num){
+		int count = 0;
+		while(num!=0){
+			count++;
+			num = num&(num-1);
+		}
+		return count;
+	}
+	
+	//方法二
+	private static int count2(int num){
+		int count = 0;
+		while(num!=0){
+			num-=num&(~num+1);
+		    count++;
+		}
+		return count;
+	}
+	
+}
