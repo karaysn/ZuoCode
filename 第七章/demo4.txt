@@ -1,0 +1,49 @@
+package chapter7;
+
+//找出现奇数次的数
+public class demo4 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int[] arr1 = {1,1,2,2,3,3,4};
+		findOne(arr1);
+		int[] arr2 = {1,1,2,2,3,4,4,5};
+		findTwo(arr2);
+	}
+	
+	//在数组中找出唯一的一个出现奇数次的数
+	private static void findOne(int[] arr){
+		if(arr==null ||arr.length==0){
+			return;
+		}
+		int temp = arr[0];
+		for(int i=1;i<arr.length;i++){
+			temp = temp^arr[i];
+		}
+		System.out.println(temp);
+	}
+
+	//在数组中找出两个出现奇数次的数
+	private static void findTwo(int[] arr){
+		if(arr==null || arr.length==0){
+			return ;
+		}
+		int temp = arr[0];
+		for(int i=1;i<arr.length;i++){
+			temp = temp^arr[i];
+		}
+		//找出1出现在最右边的地方
+		int pos = temp&(~temp+1);
+		//在循环异或一次
+		int res1 = 0;
+		for(int i=0;i<arr.length;i++){
+			if((pos&arr[i])!=0){
+				res1 = res1^arr[i];
+			}
+		}
+		System.out.println(res1+" "+(res1^temp));
+	}
+	
+}
