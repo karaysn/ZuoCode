@@ -1,0 +1,71 @@
+package chapter1;
+
+import java.util.Iterator;
+import java.util.Stack;
+//我用了迭代器的方法，不过确实复杂度是书上的低一点，只不过空间复杂度这里低点
+public class demo1 {
+
+	public static Stack<Integer> stack1;
+	public static Stack<Integer> stack2;
+	
+	public static void main(String[] args) {
+		 stack1 = new Stack<Integer>();
+		 stack2 = new Stack<Integer>();
+		 demo1 my = new demo1();
+		 my.push(2);
+		 my.push(6);
+		 my.push(1);
+		 my.push(9);
+		 System.out.println(my.getMin());
+	}
+
+	//插入数据push
+	public  void push(int a){
+		stack1.push(a);  
+		
+		if(stack2.isEmpty()){
+			stack2.push(a);
+		}
+		else{
+			if(stack2.peek()>a){
+				stack2.push(a);
+			}
+		}
+	}
+	
+	//pop
+	public  int pop(){
+		int value = stack1.pop();
+		if(!stack2.isEmpty() && value==stack2.peek()){
+			stack2.pop();
+		}
+		return value;
+	}
+
+	public  int getMin(){
+		int value1 = stack2.pop();
+		if(!stack1.isEmpty()&&stack1.peek()==value1){
+			stack1.pop();
+		}
+		return value1;
+	}
+	
+	/*	
+	//获取最小值
+	public static int getMin(){
+		//可以对栈进行迭代遍历吧
+		Iterator<Integer> it = stack1.iterator();
+		int min = stack1.peek();
+		while(it.hasNext()){
+			int temp = it.next();
+			if(min>temp){
+				min = temp;
+			}
+		}
+		return min;
+	}
+	*/
+	
+	
+	
+}
