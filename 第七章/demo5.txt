@@ -1,0 +1,56 @@
+package chapter7;
+
+//数组中其他数都出现了K次，只有一个数出现了一次
+public class demo5 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int[] arr = {1,1,1,2,2,2,3,3,3,5};
+		findOne(arr,3);
+	}
+
+	//注意要在这个数组中保持k进制的地位和高位，注意一下
+	private static void findOne(int[] arr,int k){
+		if(arr==null || arr.length==0){
+			return ;
+		}
+		int[] cur = new int[32];
+		for(int i=0;i<arr.length;i++){
+			test(arr[i],k,cur);
+		}
+		int res = changeToNum(cur,k);
+		System.out.println(res);
+	}
+	
+	//把每个数都加起来
+	private static void test(int num,int k,int[] cur){
+		int[] curK = changeTok(num,k);
+		for(int i=0;i<cur.length;i++){
+			cur[i] = (cur[i]+curK[i])%k;
+		}
+	}
+	
+	//将数转为k进制
+	private static int[] changeTok(int value,int k){
+		int[] arr = new int[32];
+		int i = arr.length-1;
+		while(value!=0){
+			arr[i--] = value%k;
+			value /= k;
+		}
+		return arr;
+	}
+	
+	//将k进制数组转为10进制数
+	private static int changeToNum(int[] arr,int k){
+		int res = 0;
+		int j = 0;
+		for(int i=arr.length-1;i>=0;i--){
+			res = res + (int)(arr[i]*Math.pow(k, j++));
+		}
+		return res;
+	}
+	
+}
