@@ -1,0 +1,46 @@
+package chapter1;
+
+import java.util.Stack;
+
+//利用递归函数和栈操作逆序一个栈
+public class demo3 {
+
+	/**
+	 这个也用一个栈实现了一个队列的感觉
+	 */
+	public static void main(String[] args) {
+		Stack<Integer> stack = new Stack<Integer>();
+		stack.push(1);
+		stack.push(2);
+		stack.push(3);
+		reverse(stack);
+		while(!stack.isEmpty()){
+			System.out.print(stack.pop()+" ");
+		}
+	}
+	
+	//获取最后一个数并且删除
+	private static int getAndRemove(Stack<Integer> stack){
+		int res = stack.pop();
+		if(stack.isEmpty()){
+			return res;
+		}
+		else{
+			int last = getAndRemove(stack);
+			stack.push(res);
+			return last;
+		}
+	}
+
+	//反转
+	private static void reverse(Stack<Integer> stack){
+		if(stack.isEmpty()){
+			return ;
+		}
+		int i = getAndRemove(stack);
+		reverse(stack);
+		stack.push(i);
+	}
+	
+	
+}
