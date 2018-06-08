@@ -1,0 +1,74 @@
+package chapter1;
+
+import java.util.Stack;
+
+
+public class demo2 {
+
+  //两个栈组成一个队列
+	public static Stack<Integer> stack1;
+	public static Stack<Integer> stack2;
+	
+	public static void main(String[] args){
+		stack1 = new Stack<Integer>();
+		stack2 = new Stack<Integer>();
+		
+		demo2 my = new demo2();
+		my.offer(1);
+		my.offer(2);
+		my.offer(3);
+		System.out.println(my.poll());
+		System.out.println(my.poll());
+		System.out.println(my.poll());
+	}
+	
+	//插入数据到队列
+	public static void offer(int a){
+		stack1.push(a);
+	}
+	//弹出数据
+	public static int poll(){
+		if(stack2.isEmpty()){
+			while(!stack1.isEmpty()){
+				stack2.push(stack1.pop());
+			}
+		}
+		return	stack2.pop();
+	}
+	
+
+	
+	//两个队列组成一个栈
+/*	public static Queue<Integer> queue1;
+	public static Queue<Integer> queue2;
+	public static void main(String[] args){
+		queue1 = new LinkedList<Integer>();
+		queue2 = new LinkedList<Integer>();
+		demo2 my = new demo2();
+		demo2.push(1);
+		demo2.push(2);
+		demo2.push(5);
+		System.out.println(my.pop());
+		System.out.println(my.pop());
+		System.out.println(my.pop());
+	}
+	
+	public static void push(int a){
+		queue1.offer(a);
+	}
+	
+	public static int pop(){
+		while(queue1.size()>1){
+			queue2.offer(queue1.poll());
+		}
+		int a = queue1.poll();
+		while(queue2.size()>0){
+			queue1.offer(queue2.poll());
+		}
+		return a;
+	}
+	*/
+	
+	
+	
+}
