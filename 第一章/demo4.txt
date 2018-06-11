@@ -1,0 +1,44 @@
+package chapter1;
+
+import java.util.LinkedList;
+
+//生成窗口最大值
+public class demo4 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int[] arr = {1,2,3,4,5,6,7,8,9};
+		int[] res = getMaxWindo(arr, 3);
+		for(int i=0;i<res.length;i++){
+			System.out.print(res[i]+" ");
+		}
+	}
+
+	//用一个双端队列，保存的是下标值
+	private static int[] getMaxWindo(int[] arr,int k){
+		if(arr==null ||arr.length==0||k==-0){
+			return null;
+		}
+		int[] res = new int[arr.length-k+1];
+		int index = 0;
+		LinkedList<Integer> list = new LinkedList<Integer>();
+		for(int i=0;i<arr.length;i++){
+			while(!list.isEmpty() && arr[list.peekLast()]<=arr[i]){
+				list.pollLast();
+			}
+			list.addLast(i);
+			//判断一下这个下标是否过期
+			if(list.peekFirst()==i-k){
+				list.pollFirst();
+			}
+			//填写到结果数组中
+			if(i>=k-1){
+				res[index++] = arr[list.peekFirst()];
+			}
+		}
+		return res;
+	}
+	
+}
