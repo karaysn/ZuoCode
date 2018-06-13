@@ -1,0 +1,52 @@
+package chapter1;
+
+import java.util.Stack;
+
+//求最大子矩阵的大小
+public class demo6 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int[][] arr = {{1,0,1,1},{1,1,1,1},{1,1,1,0}};
+		int res = findMax(arr);
+		System.out.println(res);
+	}
+
+	private static int findMax(int[][] map){
+		int max = 0;
+		if(map==null ||map.length==0 ||map[0].length==0){
+			return -1;
+		}
+		int[] arr = new int[map[0].length];
+		for(int i=0;i<map.length;i++){
+			for(int j=0;j<map[0].length;j++){
+				arr[j] = map[i][j]==0?0:arr[j]+1;
+			}
+			max = findMaxJuZhen(arr);
+		}
+		return max;
+	}
+	
+	//求最大矩阵，用一个栈来处理
+	private static int findMaxJuZhen(int[] arr){
+		Stack<Integer> stack = new Stack<Integer>();
+		int max = 0;
+		for(int i=0;i<arr.length;i++){
+			while(!stack.isEmpty() && arr[stack.peek()]>=arr[i]){
+				int j = stack.pop();
+				int k = stack.isEmpty()?-1:stack.peek();
+				max = Math.max(max, (i-k-1)*arr[j]);
+			}
+			stack.push(i);
+		}
+		while(!stack.isEmpty()){
+			int j = stack.pop();
+			int k = stack.isEmpty()?-1:stack.peek();
+			max = Math.max(max, (arr.length-k-1)*arr[j]);
+		}
+		return max;
+	}
+	
+}
