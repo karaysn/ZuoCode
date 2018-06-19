@@ -1,0 +1,30 @@
+package chapter2;
+//删除倒数第K个节点
+class ListNode {
+    int val;
+    ListNode next = null;
+
+    ListNode(int val) {
+        this.val = val;
+    }
+}
+public class demo2 {
+    public ListNode FindKthToTail(ListNode head,int k) {
+        if(head==null || k ==0){
+            return null;
+        }
+        int leng = 0;
+        ListNode  temp = head;
+        while(temp != null){
+            leng++;
+            temp = temp.next;
+        }
+        if(leng<k) return null;
+        int num = leng-k;
+        temp = head;
+        for(int i=0;i<num;i++){
+            temp = temp.next;
+        }
+        return temp;
+    }
+}
