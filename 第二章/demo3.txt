@@ -1,0 +1,55 @@
+package chapter2;
+
+//反转单链表和双向链表
+public class demo3 {
+
+	//单链表的反转
+	public static Node reverseList1(Node head){
+		if(head==null){
+			return null;
+		}
+		Node next = null;
+		Node pre = null;
+		while(head != null){
+			next = head.next;
+			head.next = pre;
+			pre = head;
+			head = next;
+		}
+		return pre;
+	}
+	
+	//双向链表的移动
+	public static DoubleNode reverseList2(DoubleNode head){
+		if(head==null){
+			return null;
+		}
+		DoubleNode next = null;
+		DoubleNode pre = null;
+		while(head!=null){
+			next = head.next;
+			head.next = pre;
+			head.last = next;
+			pre = head;
+			head = next;
+		}
+		return pre;
+	}
+	
+	
+}
+class Node{
+	public int value;
+	public Node next;
+	public Node(int value){
+		this.value = value;
+	}
+}
+class DoubleNode{
+	public int value;
+	public DoubleNode next;
+	public DoubleNode last;
+	public DoubleNode(int value){
+		this.value = value;
+	}
+}
