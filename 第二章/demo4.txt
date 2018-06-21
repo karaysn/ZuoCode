@@ -1,0 +1,51 @@
+package chapter2;
+
+//反转部分单向链表
+public class demo4 {
+
+	public static Node reverse(Node head,int from ,int to){
+		if(head==null){
+			return null;
+		}
+		//找到from前一个node和to后面那一个node
+		int count = 0;
+		Node temp = head;
+		Node pre = null;
+		Node pos = null;
+		while(temp!=null){
+			count++;
+			pre = count==from-1?temp:pre;
+			pos = count==to+1?temp:pos;
+			temp = temp.next;
+		}
+		if(from>to || count<to || from<1){
+			return head;
+		}
+		//开始反转，要考虑要不要换头
+		Node node1 = pre==null?head:pre.next;
+		Node node2 = node1.next;
+		Node next = null;
+		node1.next = pos;
+		while(node2!=pos){            //这里是不到指定的最后位置,不是不等于null
+			next = node2.next;
+			node2.next = node1;
+			node1 = node2;
+			node2 = next;
+		}
+		//考虑返回的头
+		if(pre!=null){
+			pre.next = node1;
+			return head;
+		}
+		return node1;
+    }
+
+}
+
+class Node{
+	int value;
+	Node next;
+	public Node(int value){
+		this.value =value;
+    }
+}
