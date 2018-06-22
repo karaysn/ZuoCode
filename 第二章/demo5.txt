@@ -1,0 +1,56 @@
+package chapter2;
+
+import java.util.ArrayList;
+
+//约瑟夫环
+public class demo5 {
+
+	public static void main(String[] args) {
+		int[] arr = {1,2,3,4,5,6};
+		int res = findNum(arr,4);
+		System.out.println(res);
+	}
+	
+	//不是链表形式的
+	private static int findNum(int[] arr,int k){
+		if(arr==null || k==0 ||arr.length==0){
+			return -1;
+		}
+		ArrayList<Integer> list = new ArrayList<Integer>();
+		for(int i=0;i<arr.length;i++){
+			list.add(arr[i]);
+		}
+		int index = 0;
+		while(list.size()>1){
+			index = (index+k-1)%list.size();
+			list.remove(index);
+		}
+		return list.size()>0?list.get(0):-1;
+	}
+	
+	//链表形式
+	private static Node findNode(Node head,int k){
+		if(head==null){
+			return null;
+		}
+		//通过找到尾节点，用尾节点和头结点之间来删除
+		Node last = head;
+		while(last.next!=head){
+			last = last.next;
+		}
+		int count = 0;
+		while(last!=head){
+			count++;
+			if(count==k){
+				last.next = head.next;
+				count=0;
+			}
+			else{
+				last = last.next;
+			}
+			head = head.next;
+		}
+		return head;
+	}
+	
+}
