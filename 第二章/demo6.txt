@@ -1,0 +1,30 @@
+package chapter2;
+
+import java.util.Stack;
+
+//判断一个链表是否为回文结构
+public class demo6 {
+
+	//用栈 去处理
+	public boolean isPara(Node head){
+		if(head==null){
+			return true;
+		}
+		Stack<Node> stack = new Stack<Node>();
+		Node temp = head;
+		while(temp!=null){
+			stack.push(temp);
+			temp = temp.next;
+		}
+		while(!stack.isEmpty()){
+			if(stack.pop()!=head){
+				return false;
+			}
+			else{
+				head = head.next;
+			}
+		}
+		return true;
+	}
+	
+}
