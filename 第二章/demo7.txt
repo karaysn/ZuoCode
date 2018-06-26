@@ -1,0 +1,51 @@
+package chapter2;
+
+import java.util.Stack;
+
+//两个单链表生成相加链表
+public class demo7 {
+
+	//这个是看了一下大数是怎么处理的
+//	public static void main(String[] args) {
+//		BigInteger i1 = new BigInteger("133333333333323456789");
+//		BigInteger i2 = new BigInteger("3335555099999999999999999999999999999999987654321");
+//		System.out.println(i1.add(i2));
+//	}
+	
+	//用栈,将数据全部入栈，在对两个栈进行出栈操作，进行加法处理，注意最后结束的时候还要看一下进位
+	public Node addList(Node list1,Node list2){
+		Stack<Integer> stack1 = new Stack<Integer>();
+		Stack<Integer> stack2 = new Stack<Integer>();
+		while(list1 != null){
+			stack1.add(list1.num);
+			list1 = list1.next;
+		}
+		while(list2 != null){
+			stack2.add(list2.num);
+			list2 = list2.next;
+		}
+		Node pre = null;
+		Node res = null;
+		int sum = 0;  //值
+		int ca = 0;   //进位
+		int num1 = 0; //栈一的值
+		int num2 = 0; //栈二的值
+		while((!stack1.isEmpty())||(!stack2.isEmpty())){
+			num1 = stack1.isEmpty() ? 0 : stack1.pop();
+			num2 = stack2.isEmpty() ? 0 : stack2.pop();
+			sum = num1+num2+ca;
+			pre = res;
+			res = new Node(sum%10);
+			res.next = pre;
+			ca = ca/10;          //表示进位
+		}
+		//还要考虑一下最后一次的进位是否为1
+		if(ca>0){
+			pre = res;
+			res = new Node(1);
+			res.next = pre;
+		}
+		return res;
+	}
+	
+}
