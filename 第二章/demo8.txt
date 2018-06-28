@@ -1,0 +1,71 @@
+package chapter2;
+
+public class demo8 {
+
+	//判断一个链表是否有环,如果有环，找出环的起点
+	public static Node isLoopNode(Node head){
+		Node fast = head;
+		Node slow = head;
+		boolean isLoop = false;
+		while(fast.next.next != null && slow.next !=null){
+			if(fast == slow){
+				isLoop = true;
+				break;
+			}
+			fast = fast.next.next;
+			slow = slow.next;
+		}
+		//找环的起点
+		if(isLoop){
+			fast = head;
+			while(fast != slow){
+				fast = fast.next;
+				slow = slow.next;
+			}
+			return fast;
+		}
+		return null;
+	}
+	
+	//判断两个无环链表是否相交,不相交则返回null
+	public static Node noLoop(Node head1,Node head2){
+		if(head1 == null || head2 ==null){
+			return null;
+		}
+		Node cur1 = head1;
+		Node cur2 = head2;
+		int count1 = 0;
+		int count2 = 0;
+		while(cur1 != null){
+			count1++;
+			cur1 = cur1.next;
+		}
+		while(cur2 != null){
+			count2++;
+			cur2 = cur2.next;
+		}
+		if(cur1 != cur2){
+			return null;
+		}
+		if(count1 > count2){
+			cur1 = head1;
+			int num = count1 - count2;
+			for(int i=0;i<num;i++){
+				cur1 = cur1.next;
+			}
+		}
+		else{
+			cur2 = head2;
+			for(int i=0;i<count2-count1;i++){
+				cur2 = cur2.next;
+			}
+		}
+		while(cur1 != cur2){
+			cur1 = cur1.next;
+			cur2 = cur2.next;
+		}
+		return cur1;
+	}
+	
+	
+}
