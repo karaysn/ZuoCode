@@ -1,0 +1,77 @@
+package chapter2;
+
+//判断两个环是否相交，并找出交点
+public class demo9 {
+
+	
+	public static Node findNode(Node head1,Node head2){
+		if(head1 == null || head2 ==null){
+			return null;
+		}
+		//首先找出head1，head2的环的入口
+		Node n1 = findLoop(head1);
+		Node n2 = findLoop(head2);
+		//n1和n2相等的话
+		if(n1 == n2){
+			int count1 = 0;
+			int count2 = 0;
+			Node temp1 = head1;
+			Node temp2 = head2;
+			while(temp1 !=n1){
+				count1++;
+				temp1 = temp1.next;
+			}
+			while(temp2!=n2){
+				count2++;
+				temp2 = temp2.next;
+			}
+			if(count1>count2){
+				temp1 = head1;
+				for(int i=0;i<count1-count2;i++){
+					temp1 = temp1.next;
+				}
+			}
+			else{
+				temp2 = head2;
+				for(int i=0;i<count1-count2;i++){
+					temp2 = temp2.next;
+				}
+			}
+			while(temp1 != temp2){
+				temp1 = temp1.next;
+				temp2 = temp2.next;
+			}
+			return temp1;
+		}
+		//n1和n2不相等的情况
+		else{
+			Node nodeTemp = n1.next;
+			while(nodeTemp != n1){
+				if(nodeTemp == n2){
+					return n2;
+				}
+				nodeTemp = nodeTemp.next;
+			}
+			return null;
+		}
+	}
+	
+	public static Node findLoop(Node head){
+		Node fast = head.next.next;
+		Node slow = head.next;
+		while(fast != slow){
+			if(fast.next.next ==null || slow.next==null){
+				return null;
+			}
+			fast = fast.next.next;
+			slow = slow.next;
+		}
+		fast = head;
+		while(fast != slow){
+			fast = fast.next;
+			slow = slow.next;
+		}
+		return fast;
+	}
+	
+}
