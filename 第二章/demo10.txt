@@ -1,0 +1,49 @@
+/*
+public class RandomListNode {
+    int label;
+    RandomListNode next = null;
+    RandomListNode random = null;
+
+    RandomListNode(int label) {
+        this.label = label;
+    }
+}
+*/
+//参考左书上的
+public class Solution {
+    public RandomListNode Clone(RandomListNode pHead)
+    {
+        if(pHead == null){
+            return null;
+        }
+        //组成一个复杂链表
+        RandomListNode cur = pHead;
+        RandomListNode next = null;
+        while(cur != null){
+            next = cur.next;
+            cur.next = new RandomListNode(cur.label);
+            cur.next.next = next;
+            cur = next;
+        }
+        //复制这个random指针
+        cur = pHead;
+        RandomListNode copyNode = null;
+        while(cur != null){
+            next = cur.next.next;
+            copyNode = cur.next;
+            copyNode.random = cur.random!=null?cur.random.next:null;
+            cur = next;
+        }
+        //拆分
+        cur = pHead;
+        RandomListNode res = pHead.next;
+        while(cur != null){
+            next = cur.next.next;
+            copyNode = cur.next;
+            cur.next = next;
+            copyNode.next = next !=null?next.next:null;
+            cur = next;
+        }
+        return res;
+    }
+}
