@@ -1,0 +1,57 @@
+package chapter2;
+
+import java.util.Stack;
+
+//删除链表中指定节点
+public class demo10 {
+
+	//方法一，用栈去处理
+	public Node function1(Node node, int k){
+		if(node == null){
+			return null;
+		}
+		Stack<Node> stack = new Stack<Node>();
+		//入栈操作，最后node为null
+		while(node != null){
+			if(node.num == k){
+				stack.push(node);
+			}
+			node = node.next;
+		}
+		//出栈操作,
+		while(!stack.isEmpty()){
+			Node temp = stack.pop();
+			temp.next = node;
+			node = temp;
+		}
+		return node;
+	}
+	
+	//不用容器，直接来
+	public Node function2(Node node,int k){
+		if(node == null){
+			return null;
+		}
+		//应该首先找到第一个不是k的node值
+		Node res = null;
+		while(node != null){
+			if(node.num != k){
+				res = node;
+				break;
+			}
+			node = node.next;
+		}
+		while(node != null){
+			if(node.num != k){
+				res.next = node;
+				res = node;
+				node = node.next;
+			}
+			else{
+				node = node.next;
+			}
+		}
+		return res;
+	}
+	
+}
