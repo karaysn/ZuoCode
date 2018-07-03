@@ -1,0 +1,26 @@
+package chapter2;
+
+//在有序的环形链表中插入新节点
+public class demo11 {
+
+	public Node insertNum(Node head,int k){
+		Node node = new Node(k);
+		if(head == null){
+			return node;
+		}
+		Node pre = head;
+		Node cur = head.next;
+		while(cur != head){
+			if((pre.num <= k) && (cur.num>=k)){
+				break;
+			}
+			cur = cur.next;
+			pre = pre.next;
+		}
+		pre.next = node;
+		node.next = cur;
+		return head.num<k ? node :head;
+	}
+	
+	
+}
