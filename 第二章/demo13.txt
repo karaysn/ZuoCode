@@ -1,0 +1,18 @@
+package chapter2;
+
+//一种怪异的结点删除方式
+public class demo12 {
+
+	//就是把自己后面的结点变成和自己一样的结点，然后把后面的这个结点删除了
+	public void removeNode(Node head){
+		if(head == null){
+			return ;
+		}
+		Node next = head.next;
+		if(next == null){
+			return;
+		}
+		head.num = next.num;
+		head.next = next.next;
+	}
+}
