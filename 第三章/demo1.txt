@@ -1,0 +1,62 @@
+package chapter3;
+
+import java.util.Stack;
+
+//非递归中序，前序，后续遍历二叉树
+public class demo1 {
+
+	//非递归先序遍历
+	public void pre(Node head){
+		//申请一个栈
+		Stack<Node> stack = new Stack<Node>();
+		stack.push(head);
+		while(!stack.isEmpty()){
+			Node temp = stack.pop();
+			System.out.print(temp.value+" ");
+			if(temp.right != null){
+				stack.push(temp.right);
+			}
+			if(temp.left != null){
+				stack.push(temp.left);
+			}
+		}
+	}
+	
+	//中序遍历，也是申请一个栈来处理
+	public void in(Node head){
+		Stack<Node> stack = new Stack<Node>();
+		while(!stack.isEmpty() || head!=null){
+			if(head != null){
+				//持续把左孩子压入
+				stack.push(head);
+				head = head.left;
+			}
+			else{
+				head = stack.pop();
+				System.out.println(head.value);
+				head = head.right;
+			}
+		}
+	}
+	
+	//后续遍历，用了2个栈
+	public void pos(Node head){
+		Stack<Node> stack1 = new Stack<Node>();
+		Stack<Node> stack2 = new Stack<Node>();
+		stack1.push(head);
+		while(!stack1.isEmpty()){
+			Node temp = stack1.pop();
+			stack2.push(temp);
+			if(temp.left !=null){
+				stack1.push(temp.left);
+			}
+			if(temp.right != null){
+				stack1.push(temp.right);
+			}
+		}
+		while(!stack2.isEmpty()){
+			System.out.print(stack2.pop()+" ");
+		}
+	}
+	
+}
