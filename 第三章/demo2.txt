@@ -1,0 +1,60 @@
+package chapter3;
+
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Stack;
+
+//序列化和反序列化
+public class demo2 {
+
+	//用先序遍历来序列化，！表示一个数结束，#表示null
+	public String serialByPre(Node head){
+		if(head == null){
+			return "#!";
+		}
+		StringBuilder sb = new StringBuilder();
+		//递归
+//		sb.append(head.value+"!");
+//		sb.append(serialByPre(head.left));
+//		sb.append(serialByPre(head.right));
+//		return sb.toString();
+		//非递归
+		Stack<Node> stack = new Stack<Node>();
+		stack.push(head);
+		while(!stack.isEmpty()){
+			Node temp = stack.pop();
+			if(temp == null){
+				sb.append("#!");
+			}
+			//非递归的和递归的有一些不同
+			else{
+				sb.append(temp.value+"!");
+				stack.push(temp.right);
+				stack.push(temp.left);
+			}
+		}
+		return sb.toString();
+	}
+	
+	//反序列化
+	public Node recover(String msg){
+		String[] arr = msg.split("!");
+		Queue<String> queue = new LinkedList<String>();
+		for(int i=0;i<arr.length;i++){
+			queue.offer(arr[i]);
+		}
+		return rec(queue);
+	}
+	public Node rec(Queue<String> queue){
+		String str = queue.poll();
+		if("#" == str){
+			return null;
+		}
+		Node res = new Node(Integer.parseInt(str));
+		res.left = rec(queue);
+		res.right = rec(queue);
+		return res;
+	}
+	
+	
+}
