@@ -1,0 +1,43 @@
+package chapter3;
+import java.util.*;
+//之字形打印二叉树
+public class demo3 {
+
+    public ArrayList<ArrayList<Integer> > Print(Node pRoot) {
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        ArrayList<ArrayList<Integer>> listAll = new ArrayList<ArrayList<Integer>>();
+        Queue<Node> queue = new LinkedList<Node>();
+        if(pRoot == null){
+            return listAll;
+        }
+        queue.offer(pRoot);
+        int len = queue.size();
+        int count = 0;
+        boolean flag = true;
+        while(!queue.isEmpty()){
+            Node temp = queue.poll();
+            if(flag){
+                list.add(temp.value);
+            }
+            else{
+                list.add(0,temp.value);
+            }
+            if(temp.left != null){
+                queue.offer(temp.left);
+            }
+            if(temp.right != null){
+                queue.offer(temp.right);
+            }
+            count++;
+            if(count == len){
+                flag = !flag;
+                count = 0;
+                len = queue.size();
+                listAll.add(list);    //我要对这个地方注意
+                list = new ArrayList<Integer>();//不能写list.clear()
+            }
+        }
+        return listAll;
+    }
+  
+}
