@@ -1,0 +1,23 @@
+package chapter3;
+
+//判断t1树是否包含t2树的全部拓扑结构
+//其实就是走递归
+public class demo4 {
+
+	    public boolean HasSubtree(Node root1,Node root2) {
+	        if(root1 ==null || root2==null){
+	            return false;
+	        }
+	        //走递归
+	        return  test(root1,root2)||HasSubtree(root1.left,root2) || HasSubtree(root1.right,root2);
+	    }
+	    public boolean test(Node t1,Node t2){
+	        if(t2 == null){
+	            return true;
+	        }
+	        if(t1==null || t1.value!=t2.value){
+	            return false;
+	        }
+	        return test(t1.left,t2.left)&&test(t1.right,t2.right);
+	    }
+	}
