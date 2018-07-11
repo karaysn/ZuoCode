@@ -1,0 +1,39 @@
+package chapter3;
+
+import java.util.HashMap;
+
+//在二叉树中找到累加和为指定值的最长的路径长度
+public class demo5 {
+
+	public void findMaxLength(Node head,int sum){
+		if(head == null){
+			return;
+		}
+		//map放的是层数和对应的值
+		HashMap<Integer,Integer> map = new HashMap<Integer,Integer>();
+		map.put(0,0);
+		int maxLen = test(head,map,sum,0,1,0);//第一个0表示当前最大长度，1表示层数，0表示先前值
+	}
+	
+	public int test(Node head,HashMap<Integer,Integer> map,int sum,int maxLen,int level,int preSum){
+		if(head == null){
+			return maxLen;
+		}
+		int curSum = preSum + head.value;
+		if(!map.containsKey(curSum)){
+			map.put(curSum, level);
+		}
+		if(map.containsKey(sum-curSum)){
+			maxLen = Math.max(maxLen,level -map.get(sum-curSum) );
+		}
+		//用先序遍历
+		maxLen = test(head.left,map,sum,maxLen,level+1,curSum);
+		maxLen = test(head.right,map,sum,maxLen,level+1,curSum);
+		//不是到了叶子节点，而是最后一个值刚好符合情况，此时刚好要回退去处理另外一天路径上的数据了，就要去掉
+		if(level == map.get(curSum)){
+			map.remove(curSum);
+		}
+		return maxLen;
+	}
+	
+}
