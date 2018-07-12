@@ -1,0 +1,35 @@
+package chapter3;
+
+import java.util.LinkedList;
+import java.util.Queue;
+
+//判断一个二叉树是否为完全二叉树
+public class demo6 {
+
+	//用队列去 处理
+	public boolean idWanQuanTree(Node head){
+		if(head == null){
+			return false;
+		}
+		Queue<Node> queue = new LinkedList<Node>();
+		boolean flag = false;//判断是否为叶子节点
+		queue.offer(head);
+		while(!queue.isEmpty()){
+			Node temp = queue.poll();
+			//如果左孩子为null，右孩子不为null,或者当前是叶子节点，但是左孩子或者右孩子有一个不为null
+			if((temp.left==null&&temp.right!=null) || (flag&&(temp.left!=null||temp.right!=null))){
+				return false;
+			}
+			if(temp.left !=null){
+				queue.offer(temp.left);
+			}
+			if(temp.right !=null){
+				queue.offer(temp.right);
+			}
+			else{
+				flag = true;//右孩子为null了，就是叶子节点
+			}
+		}
+	}
+	
+}
