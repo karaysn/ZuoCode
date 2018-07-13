@@ -1,0 +1,24 @@
+package chapter3;
+
+//通过有序数组生成平衡搜索二叉树
+public class demo7 {
+
+	public Node generateTree(int[] arr,int n){
+		if(arr == null || n==0){
+			return null;
+		}
+		return generate(arr,0,n-1);
+	}
+	//用递归去处理
+	public Node generate(int[] arr,int low,int high){
+		if(low>high){
+			return null;
+		}
+		int mid = (low+high)/2;
+		Node node = new Node(mid);
+		node.left = generate(arr,low,mid-1);
+		node.right = generate(arr,mid+1,high);
+		return node;
+	}
+	
+}
