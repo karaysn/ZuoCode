@@ -1,0 +1,45 @@
+package chapter3;
+
+//中序遍历 找到指定节点的后续节点
+public class demo8 {
+
+	public TreeNode findNext(TreeNode node){
+		if(node == null){
+			return null;
+		}
+		//先判断有没有右子树,有的话，则后续节点一定在右子树上
+		if(node.right != null){
+			return findNode(node.right); //返回右子树的最左子树
+		}
+		else{
+			//不存在右子树，则要去父节点找了
+			TreeNode parentNode = node.parent;
+			while(parentNode != null && parentNode.left != node){
+				node = parentNode;
+				parentNode = parentNode.parent;
+			}
+			return parentNode;
+		}
+	}
+	
+	public TreeNode findNode(TreeNode node){
+		if(node == null){
+			return null;
+		}
+		while(node.left != null){
+			node = node.left;
+		}
+		return node;
+	}
+}
+
+class TreeNode{
+	int value;
+	TreeNode left;
+	TreeNode right;
+	TreeNode parent;
+	
+	public TreeNode(int value){
+		this.value = value;
+	}
+}
