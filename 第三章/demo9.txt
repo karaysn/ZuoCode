@@ -1,0 +1,32 @@
+package chapter3;
+
+//判断一棵二叉树是不是平衡的
+public class demo9 {
+
+	public boolean isBalTree(Node node){
+		boolean[] arr = new boolean[1];
+		arr[0] = true;
+		test(node,1,arr);
+		return arr[0];
+	}
+	
+	//这个返回的int就是代表树的高度
+	public int test(Node node,int level,boolean[] arr){
+		if(node == null){
+			return level;
+		}
+		int lH = test(node.left,level+1,arr);
+		if(!arr[0]){
+			return level;
+		}
+		int rH = test(node.right,level+1,arr);
+		if(!arr[0]){
+			return level;
+		}
+		if(Math.abs(lH-rH)>1){
+			arr[0] = false;
+		}
+		return Math.max(lH, rH);
+	}
+	
+}
