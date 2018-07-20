@@ -1,0 +1,45 @@
+package chapter4;
+
+//最少换钱数，钱的数目不限
+public class demo3 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		 int arr[]= {1,5,10,50,100};
+	     int aim=57;
+	     int res = findMinCount(arr, 57);
+	     System.out.println(res);
+	}
+
+	public static int findMinCount(int[] arr,int num){
+		if(arr == null || num==0 || arr.length==0){
+			return 0;
+		}
+		//生成一个arr.length *(num+1) 的矩阵
+		int[][] res = new int[arr.length][num+1];
+		int max = Integer.MAX_VALUE;
+		//第一列全部为0
+		//第一行如何可以被arr[0]整除的就不为0，不能的都为MAX
+		for(int i=1;i<=num;i++){
+			res[0][i] = max;
+			if(i-arr[0]>=0 && res[0][i-arr[0]]!=max){
+				res[0][i] = res[0][i-arr[0]]+1;
+			}
+		}
+		int left = 0;
+		//状态转移方程是 dp[i][j] = Math.min(dp[i-1][j],dp[i][j-arr[i]]+1);
+		for(int i=1;i<arr.length;i++){
+			for(int j=1;j<=num;j++){
+				left = max;
+				if(j-arr[i]>=0 && res[i][j-arr[i]]!=max){
+					left = res[i][j-arr[i]]+1;
+				}
+				res[i][j] = Math.min(left,res[i-1][j]);
+			}
+		}
+		  return res[arr.length-1][num] != max? res[arr.length-1][num]:-1;
+	}
+	
+}
