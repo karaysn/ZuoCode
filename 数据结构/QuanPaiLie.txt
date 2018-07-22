@@ -1,0 +1,65 @@
+
+import java.util.Arrays;
+
+//全排列
+public class  QuanPaiLie {
+	
+	/*
+	 * 去重的全排列就是从第一个数字起每个数分别与它后面非重复出现的数字交换。
+	*/
+    public static void main(String[] args){
+    	int[] arr = {1,2,2};
+    	ziDianXu(arr,0);
+    	QuanPaiLie(arr,0);
+    }
+    
+    public static void QuanPaiLie(int[] arr,int i){
+    	if(i == arr.length-1){
+    		System.out.println("全排列"+Arrays.toString(arr));
+    		return;
+    	}
+    	for(int j=i;j<arr.length;j++){
+    		//防止重复
+    		if(isSwap(arr,i,j)){
+    			swap(arr,i,j);
+    			QuanPaiLie(arr,i+1);
+    			swap(arr,i,j);
+    		}
+    	}
+    }
+    
+    //要进行这个判断，才可以去掉重复的数据
+    //能不能交换，就是说交换数字中间不能出现与后面交换的重复数字如：122那个1只能和第一个2交换却不能和第二个2交换
+    public static boolean isSwap(int[] num , int i ,int j)
+	{
+		for(int index = i;index<j;index++)
+		{
+			if(num[index]==num[j])
+				return false;
+		}
+		return true;
+	}
+
+    
+    //这个方法并不可以去除重复数据
+    public static void ziDianXu(int[] arr,int start){
+    	if(start == arr.length-1){
+    		System.out.println(Arrays.toString(arr));
+    		return;
+    	}
+    	for(int i=start;i<arr.length;i++){
+    		if(i==start || arr[i]!=arr[start]){//去除重复
+    			swap(arr,i,start);
+        		ziDianXu(arr, start+1);
+        		swap(arr,i,start);
+    		}
+    	}
+    }
+    public static void swap(int[] arr,int i,int j){
+    	int temp = arr[i];
+    	arr[i] = arr[j];
+    	arr[j] = temp;
+    }
+  
+}
+
