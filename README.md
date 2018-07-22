@@ -9,6 +9,7 @@
 [问题四 选择排序](/数据结构/xuanZe.txt)<br>
 [问题五 堆排序](/数据结构/heapSort.txt)<br>
 [问题六 快速排序](/数据结构/kuaiPai.txt)<br>
+[问题七 全排列字典序递归](/数据结构/QuanPaiLie.txt)<br>
 
 第一章 栈和队列
 ---
