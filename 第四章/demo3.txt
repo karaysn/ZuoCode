@@ -1,0 +1,32 @@
+package chapter4;
+
+//最长递增子序列，不需要序列连续
+public class demo4 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int[] arr = {1,15,73,64,55,46,37,28,19,1};
+		int result = test(arr);
+		System.out.println(result);
+	}
+	
+	public static int test(int[] arr){
+		int[] dp = new int[arr.length];
+		int max = dp[0];   //找到最大值，为了找最长序列
+		for(int i=0;i<dp.length;i++){
+			dp[i] = 1;
+			for(int j = 0;j<i;j++){
+				if(arr[j] < arr[i]){
+					dp[i] = Math.max(dp[j] + 1,dp[i]);
+					if(max<dp[i]){
+						max = dp[i];
+					}
+				}
+			}
+		}
+		return max;
+	}
+
+}
