@@ -1,0 +1,41 @@
+package chapter4;
+
+//求换钱的方法数
+public class demo8 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int[] arr = {1,2,3,5};
+		int res = findCoins(arr,6);
+		System.out.println(res);
+	}
+	
+	public static int findCoins(int[] arr,int n){
+		if(arr == null || n==0){
+			return 1;
+		}
+		int[][] dp = new int[arr.length][n+1];
+		//第一列，生成钱数为0，方法数都为1，也就是一个硬币都不给
+		for(int i=0;i<arr.length;i++){
+			dp[i][0] = 1;
+		}
+		//第一行
+		for(int i=1;i*arr[0]<n+1;i++){
+			dp[0][arr[0]*i] = 1;
+		}
+		//剩余部分
+		for(int i=1;i<arr.length;i++){
+			for(int j=1;j<n+1;j++){
+				dp[i][j] = dp[i-1][j];
+				//这里是有等号的
+				if(j-arr[i] >= 0){
+					dp[i][j] += dp[i][j-arr[i]];
+				}
+			}
+		}
+		return dp[arr.length-1][n];
+	}
+
+}
