@@ -1,0 +1,36 @@
+package chapter9;
+
+//求一个数的阶乘最后结果有多少个0
+public class demo2 {
+
+	/**
+	 其实就是一个对5操作，一个对2操作
+	 */
+	public static void main(String[] args) {
+		int count = getZeroCount(10);
+		System.out.println(count);
+		int count1 = getOnePos(2);
+		System.out.println(count1);
+	}
+	
+	//获得0的个数
+	public static int getZeroCount(int num){
+		int count = 0;
+	    while(num != 0){
+	    	count += num/5;
+	    	num /= 5;
+	    }
+	    return count;
+	}
+	
+	//获得num的阶乘，再转为二进制，最低位1的位子，最右边为0
+	public static int getOnePos(int num){
+		int count = 0;
+		while(num != 0){
+			count += num/2;
+			num = num/2;
+		}
+		return count;
+	}
+
+}
