@@ -1,0 +1,25 @@
+package chapter9;
+//求最小公倍数和最大公约数
+public class demo1 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int a = 12;
+		int b = 18;
+		int num1 = getMax(12,18);
+		int num2 = getMin(12,18);
+		System.out.println(num1+" "+num2);
+	}
+
+	public static int getMax(int a,int b){
+		return b==0 ? a :getMax(b,a%b);
+	}
+	
+	public static int getMin(int a,int b){
+		int num = getMax(a,b);
+		return a/num*b;
+	}
+	
+}
