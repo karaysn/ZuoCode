@@ -1,0 +1,33 @@
+package chapter9;
+
+//从N个数中等概率打印M个数
+public class demo3 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		int[] arr = {1,2,3,4,5,6,7};
+		print(arr,7,3);
+	}
+	
+	public static void print(int[] arr,int n, int m){
+		if(arr == null || n == 0){
+			return;
+		}
+		//每次打印一个数字之后，把这个数字移到数组的最后一位，然后在剩下的再打印一下
+		int count = 0;
+		for(int i=0;i<m;i++){
+			int index = (int)Math.random()*(n-count);
+			count++;
+			System.out.print(arr[index]+" ");
+			swap(arr,index,arr.length-count);
+		}
+	}
+
+	public static void swap(int[] arr,int i,int j){
+		int temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
+	}
+}
