@@ -1,0 +1,40 @@
+package chapter9;
+//判断一个数是不是回文数字
+public class demo4 {
+
+	/**
+	 用一个变量来判断该数字是否是回文数字
+	 */
+	public static void main(String[] args) {
+		int num1 =  123321;
+		int num2 = 343433443;
+		System.out.println(test(num1)+" "+test(num2));
+
+	}
+	
+	public static boolean test(int num){
+		if(num == -2147483648){
+			return false;
+		}
+		num = Math.abs(num);
+		int index = 1;
+		//变成和num位数一样
+		while(num/index>=10){
+			index = index*10;
+		}
+		while(num != 0){
+			//取出最高位和最低位
+			int high = num/index;
+			//取出最低位
+			int low = num%10;
+			if(high!=low){
+				return false;
+			}
+			//num更新一下
+			num = (num%index)/10;
+			index = index/100;
+		}
+		return true;
+	}
+
+}
